@@ -1,6 +1,6 @@
 [submodule "lib/vscode"]
 	path = lib/vscode
-	url = https://github.com/microsoft/vscode
+	url = git@github.com:miadisabelle/mia-vscode.git
 [submodule "llms"]
 	path = llms
 	url = git@github.com:jgwill/llms-txt.git
