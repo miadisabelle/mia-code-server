@@ -1,13 +1,13 @@
 {
-  "name": "code-server",
+  "name": "mia-code-server",
   "license": "MIT",
   "version": "0.0.0",
-  "description": "Run VS Code on a remote server.",
-  "homepage": "https://github.com/coder/code-server",
+  "description": "Narrative-Driven CoDevOps Development Platform — Three-Universe intelligent code server.",
+  "homepage": "https://github.com/miadisabelle/mia-code-server",
   "bugs": {
-    "url": "https://github.com/coder/code-server/issues"
+    "url": "https://github.com/miadisabelle/mia-code-server/issues"
   },
-  "repository": "https://github.com/coder/code-server",
+  "repository": "https://github.com/miadisabelle/mia-code-server",
   "scripts": {
     "clean": "./ci/build/clean.sh",
     "build": "./ci/build/build-code-server.sh",
@@ -92,16 +92,19 @@
     "@types/node": "22.x"
   },
   "bin": {
-    "code-server": "out/node/entry.js"
+    "mia-code-server": "out/node/entry.js"
   },
   "keywords": [
     "vscode",
     "development",
     "ide",
-    "coder",
-    "vscode-remote",
+    "mia-code",
+    "narrative-driven",
+    "three-universe",
+    "codevops",
     "browser-ide",
-    "remote-development"
+    "remote-development",
+    "agentic-ide"
   ],
   "engines": {
     "node": "22"

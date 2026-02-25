@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../mia-code-server.wiki"
+		},
+		{
+			"path": "../mia-vscode"
+		}
+	],
+	"settings": {
+		"git.ignoreLimitWarning": true
+	}
+}
