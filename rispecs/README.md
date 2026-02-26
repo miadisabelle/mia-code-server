@@ -26,7 +26,7 @@ The tension between isolated tools and unified creative development platform dri
 
 ## Specification Index
 
-### 🖥️ [mia-server-core/](./mia-server-core/) — Server Foundation (10 specs)
+### 🖥️ [mia-server-core/](./mia-server-core/) — Server Foundation (11 specs)
 Core server rebranding and extension points for the mia-code-server platform.
 
 | # | Spec | Description |
@@ -41,6 +41,7 @@ Core server rebranding and extension points for the mia-code-server platform.
 | 08 | [health-telemetry.spec.md](./mia-server-core/08-health-telemetry.spec.md) | Health checks and narrative telemetry |
 | 09 | [mcp-server-integration.spec.md](./mia-server-core/09-mcp-server-integration.spec.md) | Model Context Protocol server embedding |
 | 10 | [proxy-narrative-middleware.spec.md](./mia-server-core/10-proxy-narrative-middleware.spec.md) | Proxy middleware with narrative context injection |
+| 11 | [workspace-api.spec.md](./mia-server-core/11-workspace-api.spec.md) | **Workspace lifecycle HTTP API endpoints** |
 
 ### 🔧 [miaco-module/](./miaco-module/) — CoDevOps CLI Module (8 specs)
 The miaco engineering CLI modularized for server-side integration.
@@ -114,8 +115,8 @@ Customization layer for the mia-vscode fork.
 | 11 | [telemetry-narrative.spec.md](./mia-vscode/11-telemetry-narrative.spec.md) | Telemetry routed through narrative system |
 | 12 | [output-channels.spec.md](./mia-vscode/12-output-channels.spec.md) | Universe-specific output channels |
 
-### ⚙️ [codevops-platform/](./codevops-platform/) — CI/CD & Workflows (6 specs)
-Development workflow orchestration and automation.
+### ⚙️ [codevops-platform/](./codevops-platform/) — CI/CD & Workflows (8 specs)
+Development workflow orchestration, workspace lifecycle, and automation.
 
 | # | Spec | Description |
 |---|------|-------------|
@@ -125,9 +126,11 @@ Development workflow orchestration and automation.
 | 04 | [github-integration.spec.md](./codevops-platform/04-github-integration.spec.md) | GitHub API integration for CoDevOps |
 | 05 | [agent-communication.spec.md](./codevops-platform/05-agent-communication.spec.md) | Agent-to-agent messaging system |
 | 06 | [deployment-pipeline.spec.md](./codevops-platform/06-deployment-pipeline.spec.md) | Build/deploy pipeline with narrative tracking |
+| 07 | [workspace-lifecycle.spec.md](./codevops-platform/07-workspace-lifecycle.spec.md) | **Workspace as creative lifecycle entity (Germination→Assimilation→Completion)** |
+| 08 | [spec-plan-code-pipeline.spec.md](./codevops-platform/08-spec-plan-code-pipeline.spec.md) | **AI-guided Spec→Plan→Code pipeline with steerability** |
 
-### 🔍 [pde-engine/](./pde-engine/) — Prompt Decomposition Engine (4 specs)
-Five-layer prompt analysis and decomposition system.
+### 🔍 [pde-engine/](./pde-engine/) — Prompt Decomposition Engine (5 specs)
+Five-layer prompt analysis, decomposition, and steerable germination system.
 
 | # | Spec | Description |
 |---|------|-------------|
@@ -135,10 +138,11 @@ Five-layer prompt analysis and decomposition system.
 | 02 | [medicine-wheel-mapping.spec.md](./pde-engine/02-medicine-wheel-mapping.spec.md) | Four Directions intent mapping |
 | 03 | [workflow-generation.spec.md](./pde-engine/03-workflow-generation.spec.md) | Automatic workflow template generation |
 | 04 | [pde-mcp-server.spec.md](./pde-engine/04-pde-mcp-server.spec.md) | PDE as MCP tool server |
+| 05 | [steerable-decomposition.spec.md](./pde-engine/05-steerable-decomposition.spec.md) | **Interactive germination — steerable decomposition with editing & regeneration** |
 
 ---
 
-## Total: 62 Specifications
+## Total: 66 Specifications
 
 ## Cross-Cutting Concerns
 
