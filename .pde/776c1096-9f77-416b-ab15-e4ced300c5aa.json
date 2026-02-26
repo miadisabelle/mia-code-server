@@ -1,0 +1,313 @@
+{
+  "id": "776c1096-9f77-416b-ab15-e4ced300c5aa",
+  "timestamp": "2026-02-26T15:04:02.627Z",
+  "prompt": "Evolve the mia-code-server RISE Framework rispecs by integrating key concepts from the GitHub Copilot Workspace platform specification. The Copilot Workspace had a Task→Spec→Plan→Code pipeline with steerable AI at every stage, workspace session management, repository indexing, and PR creation workflow. The existing rispecs have 62 specs across 8 categories (mia-server-core, miaco-module, three-universe, agentic-ide, narrative-intelligence, mia-vscode, codevops-platform, pde-engine).\n\nKey evolution areas:\n1. Create new rispecs that capture the Workspace Lifecycle concept (idea→spec→plan→code→PR as a first-class entity), recognizing that CW's \"Current State vs Proposed State\" specification IS essentially RISE's Structural Tension Chart made interactive and steerable\n2. Evolve the PDE engine specs to include steerable decomposition where users can edit/regenerate at any phase\n3. Enhance the codevops-platform specs with a Spec→Plan→Code pipeline that integrates with the existing workflow engine and narrative system\n4. After creating/evolving rispecs, choose the most valuable core implementation for a proof-of-concept and build it as a working TypeScript module within mia-code-server\n\nThe POC should be a Workspace Lifecycle Engine that:\n- Manages workspace sessions (create, list, resume, complete)\n- Implements the Task→Spec→Plan→Code phases as narrative arcs\n- Integrates with STC charts (Current Reality = Current State, Desired Outcome = Proposed State)\n- Provides HTTP API endpoints for each phase\n- Is testable with unit tests\n- Runs within the mia-code-server Node.js infrastructure",
+  "result": {
+    "primary": {
+      "action": "evolve",
+      "target": "mia-code-server RISE Framework rispecs by integrating Copilot Workspace concepts and building a Workspace Lifecycle Engine POC",
+      "urgency": "session",
+      "confidence": 0.95
+    },
+    "secondary": [
+      {
+        "action": "create",
+        "target": "new rispecs capturing Workspace Lifecycle concept (idea→spec→plan→code→PR)",
+        "implicit": false,
+        "dependency": null,
+        "confidence": 0.95
+      },
+      {
+        "action": "recognize",
+        "target": "CW's Current State vs Proposed State as RISE's Structural Tension Chart made interactive",
+        "implicit": false,
+        "dependency": null,
+        "confidence": 0.9
+      },
+      {
+        "action": "evolve",
+        "target": "PDE engine specs to include steerable decomposition with user editing at any phase",
+        "implicit": false,
+        "dependency": "create new workspace lifecycle rispecs",
+        "confidence": 0.9
+      },
+      {
+        "action": "enhance",
+        "target": "codevops-platform specs with Spec→Plan→Code pipeline integrated with workflow engine",
+        "implicit": false,
+        "dependency": "create new workspace lifecycle rispecs",
+        "confidence": 0.9
+      },
+      {
+        "action": "build",
+        "target": "Workspace Lifecycle Engine POC as working TypeScript module",
+        "implicit": false,
+        "dependency": "evolve rispecs",
+        "confidence": 0.95
+      },
+      {
+        "action": "implement",
+        "target": "workspace session management (create, list, resume, complete)",
+        "implicit": false,
+        "dependency": "build POC",
+        "confidence": 0.95
+      },
+      {
+        "action": "implement",
+        "target": "Task→Spec→Plan→Code phases as narrative arcs",
+        "implicit": false,
+        "dependency": "workspace session management",
+        "confidence": 0.9
+      },
+      {
+        "action": "integrate",
+        "target": "STC charts with workspace phases (Current Reality = Current State, Desired Outcome = Proposed State)",
+        "implicit": false,
+        "dependency": "Task→Spec→Plan→Code phases",
+        "confidence": 0.85
+      },
+      {
+        "action": "create",
+        "target": "HTTP API endpoints for each workspace phase",
+        "implicit": false,
+        "dependency": "workspace lifecycle phases",
+        "confidence": 0.9
+      },
+      {
+        "action": "write",
+        "target": "unit tests for the workspace lifecycle engine",
+        "implicit": false,
+        "dependency": "HTTP API endpoints",
+        "confidence": 0.9
+      },
+      {
+        "action": "ensure",
+        "target": "POC runs within mia-code-server Node.js infrastructure",
+        "implicit": true,
+        "dependency": "build POC",
+        "confidence": 0.85
+      }
+    ],
+    "context": {
+      "files_needed": [
+        "rispecs/codevops-platform/*.spec.md",
+        "rispecs/pde-engine/*.spec.md",
+        "rispecs/mia-server-core/*.spec.md",
+        "rispecs/miaco-module/04-stc-charts.spec.md",
+        "rispecs/README.md",
+        "/a/src/IAIP/prototypes/artefacts/MiAICo-251203-CopilotWorkspace-N0v2akS7SXyFCRiSpAxDNQ/copilot-workspace-specs.md",
+        "src/node/routes/index.ts",
+        "package.json",
+        "tsconfig.json"
+      ],
+      "tools_required": [
+        "file-create",
+        "file-edit",
+        "typescript-compiler",
+        "test-runner",
+        "git"
+      ],
+      "assumptions": [
+        "CW's Current State vs Proposed State specification IS RISE's Structural Tension Chart made interactive",
+        "The existing 62 rispecs provide sufficient foundation for evolution",
+        "mia-code-server Node.js infrastructure can host new modules",
+        "TypeScript is the implementation language",
+        "The POC should be self-contained enough to demonstrate the core workflow"
+      ]
+    },
+    "outputs": {
+      "artifacts": [
+        "rispecs/codevops-platform/07-workspace-lifecycle.spec.md",
+        "rispecs/codevops-platform/08-spec-plan-code-pipeline.spec.md",
+        "rispecs/pde-engine/05-steerable-decomposition.spec.md",
+        "rispecs/mia-server-core/11-workspace-api.spec.md",
+        "src/node/mia/workspace-lifecycle/types.ts",
+        "src/node/mia/workspace-lifecycle/engine.ts",
+        "src/node/mia/workspace-lifecycle/store.ts",
+        "src/node/mia/workspace-lifecycle/routes.ts",
+        "src/node/mia/workspace-lifecycle/stc-bridge.ts",
+        "src/node/mia/workspace-lifecycle/index.ts",
+        "test/unit/mia/workspace-lifecycle/engine.test.ts",
+        "test/unit/mia/workspace-lifecycle/store.test.ts",
+        "test/unit/mia/workspace-lifecycle/routes.test.ts"
+      ],
+      "updates": [
+        "rispecs/README.md"
+      ],
+      "communications": []
+    },
+    "directions": {
+      "east": [
+        {
+          "text": "Recognize CW's Spec generation as interactive STC — unifying two conceptual frameworks",
+          "confidence": 0.95,
+          "implicit": false
+        },
+        {
+          "text": "Vision: Workspace Lifecycle as first-class entity spanning idea to PR",
+          "confidence": 0.95,
+          "implicit": false
+        },
+        {
+          "text": "Vision: Steerable AI at every phase of the development lifecycle",
+          "confidence": 0.9,
+          "implicit": false
+        }
+      ],
+      "south": [
+        {
+          "text": "Analyze existing 62 rispecs for evolution opportunities",
+          "confidence": 0.9,
+          "implicit": false
+        },
+        {
+          "text": "Study CW data models (Workspace, Task, Spec, Plan, Implementation interfaces)",
+          "confidence": 0.85,
+          "implicit": false
+        },
+        {
+          "text": "Understand how STC charts map to CW's Current/Proposed state pattern",
+          "confidence": 0.9,
+          "implicit": false
+        }
+      ],
+      "west": [
+        {
+          "text": "Write unit tests for workspace lifecycle engine",
+          "confidence": 0.9,
+          "implicit": false
+        },
+        {
+          "text": "Validate POC runs within Node.js infrastructure",
+          "confidence": 0.85,
+          "implicit": true
+        },
+        {
+          "text": "Review evolved rispecs for consistency with RISE framework",
+          "confidence": 0.8,
+          "implicit": true
+        }
+      ],
+      "north": [
+        {
+          "text": "Create 4 new rispecs (workspace-lifecycle, spec-plan-code-pipeline, steerable-decomposition, workspace-api)",
+          "confidence": 0.95,
+          "implicit": false
+        },
+        {
+          "text": "Build Workspace Lifecycle Engine TypeScript module",
+          "confidence": 0.95,
+          "implicit": false
+        },
+        {
+          "text": "Implement HTTP API endpoints for workspace phases",
+          "confidence": 0.9,
+          "implicit": false
+        },
+        {
+          "text": "Implement STC chart integration bridge",
+          "confidence": 0.85,
+          "implicit": false
+        }
+      ]
+    },
+    "actionStack": [
+      {
+        "text": "Analyze existing rispecs and CW specs for evolution mapping",
+        "direction": "south",
+        "dependency": null,
+        "completed": false
+      },
+      {
+        "text": "Create rispecs/codevops-platform/07-workspace-lifecycle.spec.md — Workspace as first-class entity with Task→Spec→Plan→Code→PR phases",
+        "direction": "north",
+        "dependency": null,
+        "completed": false
+      },
+      {
+        "text": "Create rispecs/codevops-platform/08-spec-plan-code-pipeline.spec.md — Pipeline engine integrating with workflow engine",
+        "direction": "north",
+        "dependency": "workspace-lifecycle spec",
+        "completed": false
+      },
+      {
+        "text": "Create rispecs/pde-engine/05-steerable-decomposition.spec.md — User-editable decomposition with regeneration at any phase",
+        "direction": "north",
+        "dependency": null,
+        "completed": false
+      },
+      {
+        "text": "Create rispecs/mia-server-core/11-workspace-api.spec.md — REST API endpoints for workspace CRUD",
+        "direction": "north",
+        "dependency": "workspace-lifecycle spec",
+        "completed": false
+      },
+      {
+        "text": "Update rispecs/README.md with new spec entries",
+        "direction": "north",
+        "dependency": "all new rispecs created",
+        "completed": false
+      },
+      {
+        "text": "Design TypeScript types for Workspace, Phase, STC-bridge interfaces",
+        "direction": "east",
+        "dependency": "rispecs complete",
+        "completed": false
+      },
+      {
+        "text": "Implement WorkspaceStore — filesystem-based workspace persistence",
+        "direction": "north",
+        "dependency": "types designed",
+        "completed": false
+      },
+      {
+        "text": "Implement WorkspaceLifecycleEngine — phase transitions, STC integration, narrative arc tracking",
+        "direction": "north",
+        "dependency": "store implemented",
+        "completed": false
+      },
+      {
+        "text": "Implement STC Bridge — maps workspace phases to structural tension charts",
+        "direction": "north",
+        "dependency": "engine implemented",
+        "completed": false
+      },
+      {
+        "text": "Implement HTTP routes — REST endpoints for workspace operations",
+        "direction": "north",
+        "dependency": "engine implemented",
+        "completed": false
+      },
+      {
+        "text": "Write unit tests for store, engine, and routes",
+        "direction": "west",
+        "dependency": "routes implemented",
+        "completed": false
+      },
+      {
+        "text": "Run tests and validate POC works within mia-code-server infrastructure",
+        "direction": "west",
+        "dependency": "tests written",
+        "completed": false
+      }
+    ],
+    "ambiguities": [
+      {
+        "text": "Whether the POC should actually call an LLM for spec/plan/code generation or use stub/mock generation",
+        "suggestion": "Start with structured data management and mock AI generation — real LLM integration is a separate concern"
+      },
+      {
+        "text": "How deeply the STC integration should go — simple mapping or full chart lifecycle management",
+        "suggestion": "Implement the conceptual bridge (workspace phase ↔ STC chart) with simple chart creation, defer full lifecycle"
+      },
+      {
+        "text": "Whether HTTP routes should be mounted in the existing code-server Express app or run standalone",
+        "suggestion": "Design as Express Router that CAN be mounted but is also testable standalone"
+      }
+    ]
+  },
+  "options": {
+    "extractImplicit": true,
+    "mapDependencies": true
+  }
+}
