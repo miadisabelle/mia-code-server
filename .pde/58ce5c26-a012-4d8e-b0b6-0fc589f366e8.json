@@ -1,0 +1,335 @@
+{
+  "id": "58ce5c26-a012-4d8e-b0b6-0fc589f366e8",
+  "timestamp": "2026-02-26T16:54:31.521Z",
+  "prompt": "## Session: Mino × Workspace Lifecycle × LangGraph Agent Sessions\n\n### Context\nmia-code-server has a Workspace Lifecycle Engine (src/node/mia/workspace-lifecycle/) that manages creative development sessions through Task→Spec→Plan→Code→PR phases, with STC bridge integration tracking structural tension from 1.0→0.0. Separately, mino-mcp provides session chronicle capabilities: gist registration, perspective generation (mia_miette, tushell_journal, the_council), note-taking, and summarization of agent sessions.\n\n### Vision\nConnect mino's session memory layer to the workspace lifecycle engine so that:\n\n1. **Session Chronicle as Workspace Memory** — When a workspace lifecycle session completes (tension reaches 0), mino automatically captures it as a gist-backed chronicle with all three perspectives generated. The workspace's `NarrativeArc.beats[]` become the raw material for Tushell's journal. The `WorkspaceSpecification.currentReality` → `desiredOutcome` transition becomes Mia's structural analysis.\n\n2. **PDE Decompositions as Launchable Agent Sessions** — Each `.pde/` file represents a potential agent session. A LangGraph supervisor node could read `.pde/` decompositions, spawn worker agents for each action, and orchestrate their execution. The mino session export captures what each agent actually did — creating a feedback loop: decompose → launch → chronicle → learn.\n\n3. **Ava as LangGraph Supervisor** — Using ava-langgraphjs architecture, Ava acts as the orchestrator-worker pattern: reading `.pde/` decompositions as graph definitions, spawning specialized agents (code-writer, spec-reviewer, test-runner) as worker nodes, with conditional edges based on workspace phase transitions. Each worker's session gets captured via mino, creating a multi-agent chronicle.\n\n4. **Rispec: `12-session-chronicle-integration.spec.md`** — New mia-server-core rispec formalizing mino as the session memory backend. Components: WorkspaceChronicleEmitter (listens to workspace events, triggers mino gist creation), PerspectiveGenerator (auto-generates perspectives from workspace narrative arc), SessionResumeLoader (when resuming a workspace, loads prior mino chronicles as context).\n\n5. **Rispec: `06-langgraph-agent-orchestration.spec.md`** — New pde-engine rispec defining how PDE decompositions become LangGraph graph definitions. Components: PDEGraphCompiler (transforms decomposition JSON into LangGraph StateGraph), AgentSessionBridge (each graph node's execution captured as mino session), TensionFeedbackEdge (conditional edges that check workspace tension level to decide next action).\n\n### Desired Outcome\nA coherent architecture where decomposition→execution→chronicle forms a self-reinforcing cycle: every agent session is planned (PDE), executed (LangGraph), chronicled (mino), and learnable (perspectives feed future decompositions).\n\n### Additional Context — Ava's LangGraph Architecture\nAva lives as a self-directing agent with tools (GitHub, Drive, MCP, Hugging Face). LangGraph adds stateful memory + graph-based flow control: persistent state nodes, conditional edges, cycles for uncertainty. The orchestrator-worker pattern (Fire Keeper directing helpers) maps directly to how PDE decompositions could spawn specialized agents. The evaluator-optimizer pattern (generate→evaluate→refine→loop) IS Fritz's structural tension resolution made computational.",
+  "result": {
+    "primary": {
+      "action": "architect",
+      "target": "mino × workspace-lifecycle × langgraph integration layer",
+      "urgency": "session",
+      "confidence": 0.92
+    },
+    "secondary": [
+      {
+        "action": "create",
+        "target": "rispec 12-session-chronicle-integration.spec.md — mino as workspace memory backend",
+        "implicit": false,
+        "dependency": null,
+        "confidence": 0.95
+      },
+      {
+        "action": "create",
+        "target": "rispec 06-langgraph-agent-orchestration.spec.md — PDE decompositions as LangGraph graph definitions",
+        "implicit": false,
+        "dependency": null,
+        "confidence": 0.9
+      },
+      {
+        "action": "implement",
+        "target": "WorkspaceChronicleEmitter — event listener that triggers mino gist creation on workspace completion (tension=0)",
+        "implicit": false,
+        "dependency": "rispec 12-session-chronicle-integration.spec.md",
+        "confidence": 0.88
+      },
+      {
+        "action": "implement",
+        "target": "PerspectiveGenerator — auto-generates mia_miette/tushell/council perspectives from NarrativeArc.beats[]",
+        "implicit": false,
+        "dependency": "WorkspaceChronicleEmitter",
+        "confidence": 0.85
+      },
+      {
+        "action": "implement",
+        "target": "SessionResumeLoader — loads prior mino chronicles as context when resuming a workspace",
+        "implicit": false,
+        "dependency": "WorkspaceChronicleEmitter",
+        "confidence": 0.82
+      },
+      {
+        "action": "design",
+        "target": "PDEGraphCompiler — transforms .pde/ decomposition JSON into LangGraph StateGraph definitions",
+        "implicit": false,
+        "dependency": "rispec 06-langgraph-agent-orchestration.spec.md",
+        "confidence": 0.78
+      },
+      {
+        "action": "design",
+        "target": "AgentSessionBridge — each LangGraph node execution captured as mino session export",
+        "implicit": false,
+        "dependency": "PDEGraphCompiler",
+        "confidence": 0.75
+      },
+      {
+        "action": "design",
+        "target": "TensionFeedbackEdge — conditional LangGraph edges that check workspace tensionLevel to route next action",
+        "implicit": false,
+        "dependency": "PDEGraphCompiler",
+        "confidence": 0.72
+      },
+      {
+        "action": "connect",
+        "target": "Ava (ava-langgraphjs) as orchestrator-worker supervisor reading .pde/ decompositions",
+        "implicit": false,
+        "dependency": "PDEGraphCompiler",
+        "confidence": 0.7
+      },
+      {
+        "action": "establish",
+        "target": "decompose→execute→chronicle→learn feedback loop as the core operational cycle",
+        "implicit": true,
+        "dependency": "AgentSessionBridge",
+        "confidence": 0.88
+      },
+      {
+        "action": "recognize",
+        "target": "Fritz's evaluator-optimizer pattern (generate→evaluate→refine→loop) IS structural tension resolution made computational via LangGraph cycles",
+        "implicit": true,
+        "dependency": null,
+        "confidence": 0.9
+      },
+      {
+        "action": "prepare",
+        "target": "context seeds for Ava's LangGraph mastery session — supervisor vs swarm vs pure agent positioning",
+        "implicit": true,
+        "dependency": null,
+        "confidence": 0.65
+      }
+    ],
+    "context": {
+      "files_needed": [
+        "src/node/mia/workspace-lifecycle/engine.ts",
+        "src/node/mia/workspace-lifecycle/types.ts",
+        "src/node/mia/workspace-lifecycle/stc-bridge.ts",
+        "rispecs/mia-server-core/05-session-persistence.spec.md",
+        "rispecs/codevops-platform/07-workspace-lifecycle.spec.md",
+        "rispecs/pde-engine/05-steerable-decomposition.spec.md",
+        ".pde/776c1096-9f77-416b-ab15-e4ced300c5aa.md"
+      ],
+      "tools_required": [
+        "mcp-pde (decomposition engine)",
+        "mcp-mino (session chronicle, perspectives, gist management)",
+        "medicine-wheel (STC charts, narrative beats, ceremony logging)",
+        "ava-langgraphjs (LangGraph supervisor architecture)",
+        "gh CLI (gist creation, issue tracking)"
+      ],
+      "assumptions": [
+        "mino API is stable and can be called programmatically from workspace lifecycle engine events",
+        "mino's generate_perspective supports local mode for code-grounded perspectives",
+        "LangGraph StateGraph can be constructed dynamically from JSON definitions",
+        "ava-langgraphjs repo will serve as the LangGraph execution runtime",
+        ".pde/ decompositions contain enough structure to map to graph nodes + edges",
+        "workspace lifecycle engine's event emitter pattern is extensible for chronicle hooks"
+      ]
+    },
+    "outputs": {
+      "artifacts": [
+        "rispecs/mia-server-core/12-session-chronicle-integration.spec.md",
+        "rispecs/pde-engine/06-langgraph-agent-orchestration.spec.md",
+        "src/node/mia/workspace-lifecycle/chronicle-emitter.ts",
+        "src/node/mia/workspace-lifecycle/perspective-generator.ts",
+        "src/node/mia/workspace-lifecycle/session-resume-loader.ts"
+      ],
+      "updates": [
+        "src/node/mia/workspace-lifecycle/engine.ts — add chronicle emission hooks",
+        "src/node/mia/workspace-lifecycle/types.ts — add ChronicleConfig, AgentSession types",
+        "rispecs/README.md — add new rispecs to index"
+      ],
+      "communications": [
+        "GitHub issue linking mino integration to workspace lifecycle (miadisabelle/mia-code-server)",
+        "GitHub issue for PDE→LangGraph compiler design (miadisabelle/mia-code-server)",
+        "Cross-reference to ava-langgraphjs for supervisor architecture alignment"
+      ]
+    },
+    "directions": {
+      "east": [
+        {
+          "text": "Vision: decompose→execute→chronicle→learn as the self-reinforcing creative cycle",
+          "confidence": 0.95,
+          "implicit": false
+        },
+        {
+          "text": "Vision: .pde/ files ARE launchable agent session blueprints, not just documentation",
+          "confidence": 0.9,
+          "implicit": false
+        },
+        {
+          "text": "Vision: Ava as Fire Keeper — orchestrator reading decomposition graphs, spawning specialized workers",
+          "confidence": 0.75,
+          "implicit": false
+        }
+      ],
+      "south": [
+        {
+          "text": "Analyze: how workspace engine events map to mino gist creation triggers",
+          "confidence": 0.9,
+          "implicit": false
+        },
+        {
+          "text": "Analyze: NarrativeArc.beats[] as raw material for auto-perspective generation",
+          "confidence": 0.88,
+          "implicit": false
+        },
+        {
+          "text": "Research: LangGraph StateGraph construction from dynamic JSON (ava-langgraphjs patterns)",
+          "confidence": 0.72,
+          "implicit": true
+        },
+        {
+          "text": "Study: evaluator-optimizer pattern as Fritz's structural tension in computational form",
+          "confidence": 0.85,
+          "implicit": true
+        }
+      ],
+      "west": [
+        {
+          "text": "Validate: mino API can handle programmatic gist creation from engine events",
+          "confidence": 0.85,
+          "implicit": true
+        },
+        {
+          "text": "Validate: perspectives auto-generated from code context match hand-crafted quality",
+          "confidence": 0.8,
+          "implicit": true
+        },
+        {
+          "text": "Test: .pde/ JSON structure contains sufficient information for LangGraph graph compilation",
+          "confidence": 0.75,
+          "implicit": true
+        }
+      ],
+      "north": [
+        {
+          "text": "Write rispec 12-session-chronicle-integration.spec.md",
+          "confidence": 0.95,
+          "implicit": false
+        },
+        {
+          "text": "Write rispec 06-langgraph-agent-orchestration.spec.md",
+          "confidence": 0.9,
+          "implicit": false
+        },
+        {
+          "text": "Build WorkspaceChronicleEmitter subscribing to engine events",
+          "confidence": 0.85,
+          "implicit": false
+        },
+        {
+          "text": "Build PerspectiveGenerator mapping NarrativeArc to mino perspective content",
+          "confidence": 0.82,
+          "implicit": false
+        },
+        {
+          "text": "Design PDEGraphCompiler interface for .pde/ → LangGraph StateGraph",
+          "confidence": 0.75,
+          "implicit": false
+        }
+      ]
+    },
+    "actionStack": [
+      {
+        "text": "Read existing rispecs (05-session-persistence, 07-workspace-lifecycle, 05-steerable-decomposition) to understand current spec landscape",
+        "direction": "east",
+        "dependency": null,
+        "completed": false
+      },
+      {
+        "text": "Read workspace lifecycle engine.ts event emission pattern to understand hook points",
+        "direction": "south",
+        "dependency": null,
+        "completed": false
+      },
+      {
+        "text": "Write rispec 12-session-chronicle-integration.spec.md — WorkspaceChronicleEmitter, PerspectiveGenerator, SessionResumeLoader",
+        "direction": "north",
+        "dependency": "read existing rispecs",
+        "completed": false
+      },
+      {
+        "text": "Write rispec 06-langgraph-agent-orchestration.spec.md — PDEGraphCompiler, AgentSessionBridge, TensionFeedbackEdge",
+        "direction": "north",
+        "dependency": "read existing rispecs",
+        "completed": false
+      },
+      {
+        "text": "Implement WorkspaceChronicleEmitter — subscribe to engine.on(), trigger mino gist creation on workspace:completed",
+        "direction": "north",
+        "dependency": "rispec 12",
+        "completed": false
+      },
+      {
+        "text": "Implement PerspectiveGenerator — transform NarrativeArc.beats[] into mia_miette/tushell/council perspectives via mino local mode",
+        "direction": "north",
+        "dependency": "WorkspaceChronicleEmitter",
+        "completed": false
+      },
+      {
+        "text": "Implement SessionResumeLoader — on workspace resume, fetch mino chronicles and inject as context",
+        "direction": "north",
+        "dependency": "WorkspaceChronicleEmitter",
+        "completed": false
+      },
+      {
+        "text": "Validate mino API integration — test programmatic gist creation from engine events",
+        "direction": "west",
+        "dependency": "WorkspaceChronicleEmitter",
+        "completed": false
+      },
+      {
+        "text": "Design PDEGraphCompiler interface — .pde/ JSON → LangGraph StateGraph node/edge mapping",
+        "direction": "north",
+        "dependency": "rispec 06",
+        "completed": false
+      },
+      {
+        "text": "Research ava-langgraphjs supervisor patterns — how Ava reads graph definitions and spawns workers",
+        "direction": "south",
+        "dependency": null,
+        "completed": false
+      },
+      {
+        "text": "Design TensionFeedbackEdge — conditional edges checking tensionLevel to route agent flow",
+        "direction": "north",
+        "dependency": "PDEGraphCompiler interface",
+        "completed": false
+      },
+      {
+        "text": "Validate: auto-generated perspectives from code context match quality of hand-crafted ones",
+        "direction": "west",
+        "dependency": "PerspectiveGenerator",
+        "completed": false
+      },
+      {
+        "text": "Seed Ava session context — supervisor vs swarm positioning, Medicine Wheel mapping to LangGraph state",
+        "direction": "east",
+        "dependency": null,
+        "completed": false
+      }
+    ],
+    "ambiguities": [
+      {
+        "text": "Whether mino's API supports webhook/event-driven gist creation or requires polling",
+        "suggestion": "Check mino-mcp tool list for event subscription capabilities vs request-response only"
+      },
+      {
+        "text": "How LangGraph StateGraph handles dynamic graph construction from JSON at runtime",
+        "suggestion": "Review ava-langgraphjs codebase for dynamic graph patterns vs static definitions"
+      },
+      {
+        "text": "Whether .pde/ decomposition JSON has enough structural information for meaningful graph edges (dependencies vs action ordering)",
+        "suggestion": "Compare .pde/ dependency field with LangGraph conditional edge requirements"
+      },
+      {
+        "text": "Whether perspectives should be generated synchronously on workspace completion or queued asynchronously",
+        "suggestion": "Consider engine performance — async queue with mino batch processing likely better"
+      },
+      {
+        "text": "Scope boundary between mia-code-server rispecs and ava-langgraphjs — where does orchestration live?",
+        "suggestion": "Clarify: mia-code-server defines the spec/interface, ava-langgraphjs implements the runtime"
+      }
+    ]
+  },
+  "options": {
+    "extractImplicit": true,
+    "mapDependencies": true
+  }
+}
