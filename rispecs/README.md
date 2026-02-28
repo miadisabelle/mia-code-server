@@ -140,9 +140,20 @@ Five-layer prompt analysis, decomposition, and steerable germination system.
 | 04 | [pde-mcp-server.spec.md](./pde-engine/04-pde-mcp-server.spec.md) | PDE as MCP tool server |
 | 05 | [steerable-decomposition.spec.md](./pde-engine/05-steerable-decomposition.spec.md) | **Interactive germination — steerable decomposition with editing & regeneration** |
 
+### 🔗 [smcraft-integration/](./smcraft-integration/) — State Machine Integration (5 specs)
+smcraft (State Machine Craft) integration — creative process as executable state machine.
+
+| # | Spec | Description |
+|---|------|-------------|
+| 00 | [shared-vocabulary.md](./smcraft-integration/00-shared-vocabulary.md) | Concept mapping between smcraft and mia-code-server |
+| 01 | [state-machine-creative-process.spec.md](./smcraft-integration/01-state-machine-creative-process.spec.md) | **STC as state machine — Germination→Assimilation→Completion as SMDF** |
+| 02 | [smcraft-mcp-bridge.spec.md](./smcraft-integration/02-smcraft-mcp-bridge.spec.md) | Proxying smcraft's 11 MCP tools through /api/mcp |
+| 03 | [visual-designer-integration.spec.md](./smcraft-integration/03-visual-designer-integration.spec.md) | Embedding smcraft web designer as VS Code webview |
+| 04 | [cross-repo-orchestration.spec.md](./smcraft-integration/04-cross-repo-orchestration.spec.md) | **Agentic cross-repo coordination as platform capability** |
+
 ---
 
-## Total: 66 Specifications
+## Total: 71 Specifications
 
 ## Cross-Cutting Concerns
 

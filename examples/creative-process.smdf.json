@@ -1,0 +1,402 @@
+{
+  "settings": {
+    "namespace": "MiaCodeServer.CreativeProcess",
+    "name": "CreativeProcessLifecycle",
+    "asynchronous": true,
+    "objects": [
+      { "instance": "workspace", "class": "WorkspaceEntity" },
+      { "instance": "stcChart", "class": "StructuralTensionChart" },
+      { "instance": "narrative", "class": "NarrativeArc" }
+    ],
+    "context": {
+      "class": "CreativeProcessContext",
+      "instance": "ctx"
+    }
+  },
+  "events": [
+    {
+      "name": "UserEvents",
+      "description": "Events triggered by human actions in the creative workspace",
+      "events": [
+        {
+          "id": "tension_established",
+          "description": "STC chart created with desired outcome and current reality — machine energized",
+          "parameters": [
+            { "name": "desiredOutcome", "type": "string" },
+            { "name": "currentReality", "type": "string" }
+          ]
+        },
+        {
+          "id": "user_edit",
+          "description": "Human edits any artifact (spec, plan, code, PDE markdown)",
+          "parameters": [
+            { "name": "artifactPath", "type": "string" },
+            { "name": "editType", "type": "string" }
+          ]
+        },
+        {
+          "id": "action_step_completed",
+          "description": "A strategic secondary choice has been fulfilled — state transition event",
+          "parameters": [
+            { "name": "actionStepId", "type": "string" },
+            { "name": "completionNote", "type": "string" }
+          ]
+        },
+        {
+          "id": "moment_of_truth",
+          "description": "Creator Moment of Truth review — guard evaluation point",
+          "parameters": [
+            { "name": "reviewOutcome", "type": "string" }
+          ]
+        },
+        {
+          "id": "workspace_fork",
+          "description": "User creates a branch/variant from current state",
+          "parameters": [
+            { "name": "forkReason", "type": "string" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "AIEvents",
+      "description": "Events triggered by AI companion actions",
+      "events": [
+        {
+          "id": "ai_generate",
+          "description": "AI produces content (spec items, plan, code, suggestions)",
+          "parameters": [
+            { "name": "generationType", "type": "string" },
+            { "name": "artifactPath", "type": "string" }
+          ]
+        },
+        {
+          "id": "pde_decomposed",
+          "description": "PDE decomposition completed for a prompt",
+          "parameters": [
+            { "name": "pdeId", "type": "string" }
+          ]
+        },
+        {
+          "id": "reality_updated",
+          "description": "Current reality reassessed by AI or user — may re-evaluate guards",
+          "parameters": [
+            { "name": "newReality", "type": "string" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SystemEvents",
+      "description": "Events triggered by platform systems",
+      "events": [
+        {
+          "id": "phase_advance",
+          "description": "All sub-states in current phase resolved — advance to next phase"
+        },
+        {
+          "id": "phase_retreat",
+          "description": "Return to earlier phase for revision (steerable)"
+        },
+        {
+          "id": "tension_resolve",
+          "description": "Desired outcome achieved — structural tension resolved"
+        },
+        {
+          "id": "tension_oscillate",
+          "description": "Oscillating pattern detected — not advancing"
+        }
+      ],
+      "timers": [
+        {
+          "id": "evReviewTimer",
+          "name": "ReviewTimer",
+          "description": "Timer for human review windows (e.g., PDE 12-minute sleep)"
+        },
+        {
+          "id": "evGerminationTimeout",
+          "name": "GerminationTimeout",
+          "description": "Warning: too long in germination — risk of over-planning"
+        }
+      ]
+    }
+  ],
+  "state": {
+    "name": "CreativeProcess",
+    "description": "Root state — the full creative process lifecycle",
+    "states": [
+      {
+        "name": "Idle",
+        "description": "No active creative process — waiting for tension to be established",
+        "transitions": [
+          {
+            "event": "tension_established",
+            "nextState": "Germination_TaskDefinition",
+            "description": "Structural tension established — machine energized, enter germination",
+            "actions": [
+              { "code": "workspace.setStatus('germinating')" },
+              { "code": "stcChart.create(event.desiredOutcome, event.currentReality)" },
+              { "code": "narrative.addBeat('Tension established — the creative process begins')" }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Germination",
+        "description": "Initial excitement, vision development, structural tension establishment",
+        "onEntry": {
+          "actions": [
+            { "code": "workspace.setPhase('germinating')" },
+            { "code": "narrative.addBeat('Germination: vision crystallizes')" },
+            { "timerStart": { "timer": "GerminationTimeout", "duration": "3600000" } }
+          ]
+        },
+        "onExit": {
+          "actions": [
+            { "timerStop": "GerminationTimeout" },
+            { "code": "narrative.addBeat('Germination complete — entering assimilation')" }
+          ]
+        },
+        "states": [
+          {
+            "name": "Germination_TaskDefinition",
+            "description": "Capturing the creative impulse — what do you want to create?",
+            "transitions": [
+              {
+                "event": "user_edit",
+                "nextState": "Germination_TaskDefinition",
+                "condition": "event.editType === 'task'",
+                "description": "Task refined — stay in task definition"
+              },
+              {
+                "event": "ai_generate",
+                "nextState": "Germination_SpecGeneration",
+                "condition": "event.generationType === 'spec'",
+                "description": "AI generates spec from task — advance to specification"
+              },
+              {
+                "event": "action_step_completed",
+                "nextState": "Germination_SpecGeneration",
+                "description": "Task definition action step completed — advance"
+              }
+            ]
+          },
+          {
+            "name": "Germination_SpecGeneration",
+            "description": "Structural tension made interactive — current reality vs desired outcome specification",
+            "transitions": [
+              {
+                "event": "user_edit",
+                "nextState": "Germination_SpecGeneration",
+                "condition": "event.editType === 'spec'",
+                "description": "Spec item edited — stay and refine"
+              },
+              {
+                "event": "pde_decomposed",
+                "nextState": "Germination_PDEDecomposition",
+                "description": "PDE decomposition triggered — enter decomposition sub-state"
+              },
+              {
+                "event": "action_step_completed",
+                "nextState": "Germination_PDEDecomposition",
+                "description": "Spec generation complete — advance to decomposition"
+              }
+            ]
+          },
+          {
+            "name": "Germination_PDEDecomposition",
+            "description": "Prompt decomposed into structured intents — steerable germination",
+            "transitions": [
+              {
+                "event": "user_edit",
+                "nextState": "Germination_PDEDecomposition",
+                "condition": "event.editType === 'pde'",
+                "description": "PDE markdown edited by human — stay and incorporate"
+              },
+              {
+                "event": "phase_advance",
+                "nextState": "Assimilation_PlanGeneration",
+                "description": "Germination complete — advance to assimilation"
+              },
+              {
+                "event": "moment_of_truth",
+                "nextState": "Germination_TaskDefinition",
+                "condition": "event.reviewOutcome === 'rethink'",
+                "description": "Moment of truth: needs rethinking — retreat to task definition"
+              }
+            ]
+          }
+        ],
+        "transitions": [
+          {
+            "event": "evGerminationTimeout",
+            "description": "Over-planning warning — consider advancing to assimilation",
+            "actions": [
+              { "code": "narrative.addBeat('Warning: germination may be stalling — consider action')" }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Assimilation",
+        "description": "Internalizing structural tension — the universe cooperates, real creative work happens",
+        "onEntry": {
+          "actions": [
+            { "code": "workspace.setPhase('assimilating')" },
+            { "code": "narrative.addBeat('Assimilation: the deep work begins')" }
+          ]
+        },
+        "onExit": {
+          "actions": [
+            { "code": "narrative.addBeat('Assimilation complete — entering completion')" }
+          ]
+        },
+        "states": [
+          {
+            "name": "Assimilation_PlanGeneration",
+            "description": "The structural mapping phase — concrete file-level actions",
+            "transitions": [
+              {
+                "event": "ai_generate",
+                "nextState": "Assimilation_PlanGeneration",
+                "condition": "event.generationType === 'plan'",
+                "description": "AI generates plan — refine"
+              },
+              {
+                "event": "action_step_completed",
+                "nextState": "Assimilation_CodeImplementation",
+                "description": "Plan accepted — advance to implementation"
+              },
+              {
+                "event": "phase_retreat",
+                "nextState": "Germination_SpecGeneration",
+                "description": "Retreat to spec — something needs revision"
+              }
+            ]
+          },
+          {
+            "name": "Assimilation_CodeImplementation",
+            "description": "Manifestation through advancing patterns — code is being written",
+            "transitions": [
+              {
+                "event": "ai_generate",
+                "nextState": "Assimilation_CodeImplementation",
+                "condition": "event.generationType === 'code'",
+                "description": "AI generates code — continue implementation"
+              },
+              {
+                "event": "action_step_completed",
+                "nextState": "Assimilation_IterativeRefinement",
+                "description": "Implementation milestone — enter refinement"
+              },
+              {
+                "event": "moment_of_truth",
+                "nextState": "Assimilation_PlanGeneration",
+                "condition": "event.reviewOutcome === 'replan'",
+                "description": "Moment of truth: plan needs adjustment"
+              }
+            ]
+          },
+          {
+            "name": "Assimilation_IterativeRefinement",
+            "description": "Continuous adjustment based on feedback — creating and adjusting",
+            "transitions": [
+              {
+                "event": "reality_updated",
+                "nextState": "Assimilation_CodeImplementation",
+                "condition": "ctx.tensionLevel > 0.5",
+                "description": "High tension remaining — return to implementation"
+              },
+              {
+                "event": "phase_advance",
+                "nextState": "Completion_Validation",
+                "description": "Refinement stabilized — advance to completion"
+              },
+              {
+                "event": "tension_oscillate",
+                "nextState": "Assimilation_PlanGeneration",
+                "description": "Oscillating pattern detected — return to plan",
+                "actions": [
+                  { "code": "narrative.addBeat('Oscillation detected — reassessing structural approach')" }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Completion",
+        "description": "Bringing creation to successful conclusion — more complex actions required",
+        "onEntry": {
+          "actions": [
+            { "code": "workspace.setPhase('completing')" },
+            { "code": "narrative.addBeat('Completion: bringing the creation home')" }
+          ]
+        },
+        "states": [
+          {
+            "name": "Completion_Validation",
+            "description": "Verifying the creation meets the desired outcome",
+            "transitions": [
+              {
+                "event": "action_step_completed",
+                "nextState": "Completion_Review",
+                "description": "Validation passed — advance to review"
+              },
+              {
+                "event": "moment_of_truth",
+                "nextState": "Assimilation_IterativeRefinement",
+                "condition": "event.reviewOutcome === 'needs_work'",
+                "description": "Moment of truth: not ready — return to refinement"
+              }
+            ]
+          },
+          {
+            "name": "Completion_Review",
+            "description": "Peers gather to witness the work — review and feedback",
+            "transitions": [
+              {
+                "event": "action_step_completed",
+                "nextState": "Completion_Integration",
+                "description": "Review approved — advance to integration"
+              },
+              {
+                "event": "user_edit",
+                "nextState": "Completion_Validation",
+                "condition": "event.editType === 'review_feedback'",
+                "description": "Review feedback requires changes — re-validate"
+              }
+            ]
+          },
+          {
+            "name": "Completion_Integration",
+            "description": "The creation joins the living codebase — PR merged, deployed",
+            "transitions": [
+              {
+                "event": "tension_resolve",
+                "nextState": "Resolved",
+                "description": "Structural tension resolved — desired outcome achieved",
+                "actions": [
+                  { "code": "workspace.setStatus('resolved')" },
+                  { "code": "narrative.addBeat('The creation is complete — structural tension resolved')" },
+                  { "code": "stcChart.markComplete()" }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Resolved",
+        "kind": "final",
+        "description": "Desired outcome achieved — structural tension resolved, creative process complete",
+        "onEntry": {
+          "actions": [
+            { "code": "workspace.setStatus('resolved')" },
+            { "code": "narrative.addBeat('Resolution: what was envisioned now exists')" }
+          ]
+        }
+      }
+    ]
+  }
+}
