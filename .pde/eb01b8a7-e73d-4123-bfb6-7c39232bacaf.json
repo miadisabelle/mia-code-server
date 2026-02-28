@@ -1,0 +1,265 @@
+{
+  "id": "eb01b8a7-e73d-4123-bfb6-7c39232bacaf",
+  "timestamp": "2026-02-28T20:50:40.130Z",
+  "prompt": "## Context: mia-code-server smcraft Integration — Preparing the Platform Side\n\nmia-code-server (miadisabelle/mia-code-server) is a narrative-driven CoDevOps IDE platform with 66 existing RISE rispecs covering server core, miaco module, three-universe processing, agentic IDE, narrative intelligence, VS Code customization, codevops platform (including workspace lifecycle with Germination→Assimilation→Completion phases), and PDE engine.\n\nAnother agent is simultaneously building RISE rispecs and implementations in smcraft (jgwill/smcraft) at /b/trading/smcraft — covering SMDF format, runtime, code generator, MCP server (11 tools), and web designer with MMOT composite state drill-down. See /b/trading/.pde/1799837b-4411-4a0f-94c6-c99b58cf8bf4.md for the full decomposition.\n\n### This agent's job: Prepare mia-code-server to integrate smcraft\n\n1. **New rispecs needed in mia-code-server** for smcraft integration\n2. **KINSHIP.md updates**\n3. **Submodule consideration**\n4. **Cross-reference existing specs**",
+  "result": {
+    "primary": {
+      "action": "prepare",
+      "target": "mia-code-server platform for smcraft state machine integration — new rispecs, KINSHIP updates, submodule setup",
+      "urgency": "session",
+      "confidence": 0.95
+    },
+    "secondary": [
+      {
+        "action": "create",
+        "target": "rispec for State Machine Driven Creative Process — mapping Germination→Assimilation→Completion as smcraft hierarchical state machine with sub-states per phase",
+        "implicit": false,
+        "dependency": null,
+        "confidence": 0.95
+      },
+      {
+        "action": "create",
+        "target": "rispec for smcraft MCP Bridge — proxying/invoking smcraft's 11 MCP tools from mia-code-server's /api/mcp endpoint",
+        "implicit": false,
+        "dependency": null,
+        "confidence": 0.92
+      },
+      {
+        "action": "create",
+        "target": "rispec for Visual State Machine Designer Integration — embedding smcraft web designer as VS Code webview panel",
+        "implicit": false,
+        "dependency": null,
+        "confidence": 0.88
+      },
+      {
+        "action": "update",
+        "target": "rispecs/KINSHIP.md — declare smcraft as core integration, document structural tension → state transitions bridge, map workspace lifecycle phases to SMDF",
+        "implicit": false,
+        "dependency": "create rispecs",
+        "confidence": 0.95
+      },
+      {
+        "action": "evaluate",
+        "target": "jgwill/smcraft as git submodule — ship TypeScript runtime and web designer built-in",
+        "implicit": false,
+        "dependency": null,
+        "confidence": 0.75
+      },
+      {
+        "action": "cross-reference",
+        "target": "existing specs (workspace-lifecycle, workflow-engine, steerable-decomposition, mcp-server-integration) to ensure new rispecs integrate cleanly",
+        "implicit": true,
+        "dependency": "create rispecs",
+        "confidence": 0.9
+      },
+      {
+        "action": "coordinate",
+        "target": "with smcraft agent to ensure smcraft rispecs (70-74) reference mia-code-server integration points",
+        "implicit": true,
+        "dependency": "create rispecs",
+        "confidence": 0.85
+      }
+    ],
+    "context": {
+      "files_needed": [
+        "rispecs/KINSHIP.md",
+        "rispecs/README.md",
+        "rispecs/codevops-platform/07-workspace-lifecycle.spec.md",
+        "rispecs/codevops-platform/02-workflow-engine.spec.md",
+        "rispecs/mia-server-core/09-mcp-server-integration.spec.md",
+        "rispecs/pde-engine/05-steerable-decomposition.spec.md",
+        "rispecs/agentic-ide/01-agent-panel.spec.md",
+        "/b/trading/.pde/1799837b-4411-4a0f-94c6-c99b58cf8bf4.md",
+        "/b/trading/smcraft/KINSHIP.md",
+        "/b/trading/smcraft/MMOT.md",
+        "llms/llms-rise-framework.txt"
+      ],
+      "tools_required": [
+        "file editor",
+        "git",
+        "mcp-pde"
+      ],
+      "assumptions": [
+        "The 66 existing rispecs in mia-code-server are stable and will not change during this session",
+        "The smcraft agent is building rispecs 70-74 simultaneously and they will be available for cross-reference",
+        "smcraft's TypeScript package is consumable as a dependency",
+        "The RISE framework spec format from llms-rise-framework.txt should be followed for new rispecs",
+        "New rispecs should go into a new subdirectory under rispecs/ (likely rispecs/smcraft-integration/)"
+      ]
+    },
+    "outputs": {
+      "artifacts": [
+        "rispecs/smcraft-integration/01-state-machine-creative-process.spec.md",
+        "rispecs/smcraft-integration/02-smcraft-mcp-bridge.spec.md",
+        "rispecs/smcraft-integration/03-visual-designer-integration.spec.md"
+      ],
+      "updates": [
+        "rispecs/KINSHIP.md",
+        "rispecs/README.md"
+      ],
+      "communications": [
+        "Cross-repo coordination notes in /b/trading/.pde/1799837b-4411-4a0f-94c6-c99b58cf8bf4.md"
+      ]
+    },
+    "directions": {
+      "east": [
+        {
+          "text": "Vision: smcraft as the state machine engine powering mia-code-server's creative process lifecycle — every workspace session IS a state machine",
+          "confidence": 0.95,
+          "implicit": false
+        },
+        {
+          "text": "Vision: structural tension → state transitions as natural conceptual mapping — tension between current reality and desired outcome drives state machine progression",
+          "confidence": 0.92,
+          "implicit": false
+        },
+        {
+          "text": "Vision: IDE with embedded state machine designer for visualizing and editing creative process workflows",
+          "confidence": 0.85,
+          "implicit": true
+        }
+      ],
+      "south": [
+        {
+          "text": "Analyze existing 66 rispecs for integration points with smcraft — identify which specs need awareness of state machine concepts",
+          "confidence": 0.9,
+          "implicit": true
+        },
+        {
+          "text": "Study smcraft's SMDF format and map it to workspace lifecycle WorkspaceEntity/WorkspacePhase types",
+          "confidence": 0.92,
+          "implicit": false
+        },
+        {
+          "text": "Analyze smcraft MCP tools (11 tools) to determine proxy strategy from mia-code-server endpoint",
+          "confidence": 0.88,
+          "implicit": false
+        },
+        {
+          "text": "Evaluate submodule vs npm dependency approach for smcraft TypeScript consumption",
+          "confidence": 0.75,
+          "implicit": false
+        }
+      ],
+      "west": [
+        {
+          "text": "Validate that new rispecs follow RISE framework format from llms-rise-framework.txt",
+          "confidence": 0.9,
+          "implicit": true
+        },
+        {
+          "text": "Validate that the conceptual bridge (structural tension ↔ state transitions) is sound and not a forced metaphor",
+          "confidence": 0.85,
+          "implicit": true
+        },
+        {
+          "text": "Review consistency between new smcraft-integration specs and existing codevops-platform/workspace-lifecycle spec",
+          "confidence": 0.88,
+          "implicit": false
+        }
+      ],
+      "north": [
+        {
+          "text": "Create 3 new rispecs in rispecs/smcraft-integration/",
+          "confidence": 0.95,
+          "implicit": false
+        },
+        {
+          "text": "Update KINSHIP.md with formal smcraft integration declaration",
+          "confidence": 0.95,
+          "implicit": false
+        },
+        {
+          "text": "Update README.md specification index with new smcraft-integration section",
+          "confidence": 0.9,
+          "implicit": true
+        },
+        {
+          "text": "Git add and commit all new/updated files",
+          "confidence": 0.95,
+          "implicit": true
+        }
+      ]
+    },
+    "actionStack": [
+      {
+        "text": "Read and internalize RISE framework format from llms-rise-framework.txt",
+        "direction": "east",
+        "dependency": null,
+        "completed": true
+      },
+      {
+        "text": "Read all existing rispecs directories and KINSHIP.md to understand current spec landscape",
+        "direction": "south",
+        "dependency": null,
+        "completed": true
+      },
+      {
+        "text": "Read smcraft PDE decomposition and MMOT.md to understand what the other agent is building",
+        "direction": "south",
+        "dependency": null,
+        "completed": true
+      },
+      {
+        "text": "Create rispecs/smcraft-integration/ directory",
+        "direction": "north",
+        "dependency": null,
+        "completed": false
+      },
+      {
+        "text": "Create 01-state-machine-creative-process.spec.md — map Germination→Assimilation→Completion as hierarchical state machine with sub-states, events, guards, and actions",
+        "direction": "north",
+        "dependency": "Create directory",
+        "completed": false
+      },
+      {
+        "text": "Create 02-smcraft-mcp-bridge.spec.md — MCP tool proxying strategy, authentication pass-through, tool registry synchronization",
+        "direction": "north",
+        "dependency": "Create directory",
+        "completed": false
+      },
+      {
+        "text": "Create 03-visual-designer-integration.spec.md — webview panel embedding, state machine visualization within IDE, bidirectional sync with workspace lifecycle",
+        "direction": "north",
+        "dependency": "Create directory",
+        "completed": false
+      },
+      {
+        "text": "Update rispecs/KINSHIP.md — add smcraft as core integration, document structural tension → state transitions bridge",
+        "direction": "north",
+        "dependency": "Create rispecs",
+        "completed": false
+      },
+      {
+        "text": "Update rispecs/README.md — add smcraft-integration section to specification index",
+        "direction": "north",
+        "dependency": "Create rispecs",
+        "completed": false
+      },
+      {
+        "text": "Validate all new specs against RISE framework compliance",
+        "direction": "west",
+        "dependency": "Create rispecs",
+        "completed": false
+      }
+    ],
+    "ambiguities": [
+      {
+        "text": "New rispecs directory naming — 'smcraft-integration' vs a different convention",
+        "suggestion": "Use 'smcraft-integration/' to match the pattern of other subdirectories (mia-server-core, codevops-platform, etc.)"
+      },
+      {
+        "text": "Submodule path — ./smcraft/ vs ./lib/smcraft/ vs npm dependency",
+        "suggestion": "Evaluate both; submodule gives source access for web designer embedding, npm gives cleaner dependency management. Recommend submodule for now given active development."
+      },
+      {
+        "text": "How many smcraft MCP tools to expose vs which to keep internal",
+        "suggestion": "Expose all 11 through the bridge initially, gate with permissions later"
+      }
+    ]
+  },
+  "options": {
+    "extractImplicit": true,
+    "mapDependencies": true
+  }
+}
