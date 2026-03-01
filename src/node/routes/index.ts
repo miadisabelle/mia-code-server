@@ -165,6 +165,12 @@ export const register = async (
 
   app.router.use("/update", update.router)
 
+  // Workspace Lifecycle API — Three-Universe workspace management
+  const workspaceStorePath = path.join(paths.data, "workspaces")
+  const workspaceStore = new WorkspaceStore(workspaceStorePath)
+  const workspaceEngine = new WorkspaceLifecycleEngine(workspaceStore)
+  app.router.use("/api/workspace", createWorkspaceRouter(workspaceEngine))
+
   // For historic reasons we also load at /vscode because the root was replaced
   // by a plugin in v1 of Coder.  The plugin system (which was for internal use
   // only) has been removed, but leave the additional route for now.

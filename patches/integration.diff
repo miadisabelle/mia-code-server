@@ -304,10 +304,10 @@ Index: code-server/lib/vscode/src/server-main.ts
 +if (!process.env.CODE_SERVER_PARENT_PID) {
 +	start();
 +}
-Index: code-server/lib/vscode/src/vs/platform/dialogs/browser/dialog.ts
+Index: code-server/lib/vscode/src/vs/workbench/browser/parts/dialogs/dialog.ts
 ===================================================================
---- code-server.orig/lib/vscode/src/vs/platform/dialogs/browser/dialog.ts
-+++ code-server/lib/vscode/src/vs/platform/dialogs/browser/dialog.ts
+--- code-server.orig/lib/vscode/src/vs/workbench/browser/parts/dialogs/dialog.ts
++++ code-server/lib/vscode/src/vs/workbench/browser/parts/dialogs/dialog.ts
 @@ -45,8 +45,11 @@ export function createWorkbenchDialogOpt
  
  export function createBrowserAboutDialogDetails(productService: IProductService): { title: string; details: string; detailsToCopy: string } {
