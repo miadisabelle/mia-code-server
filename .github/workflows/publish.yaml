@@ -35,7 +35,7 @@ jobs:
       - name: Download npm package from release artifacts
         uses: robinraju/release-downloader@v1.12
         with:
-          repository: "coder/code-server"
+          repository: "miadisabelle/mia-code-server"
           tag: ${{ github.event.inputs.version || github.ref_name }}
           fileName: "package.tar.gz"
           out-file-path: "release-npm-package"
@@ -52,65 +52,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_ENVIRONMENT: "production"
-
-  aur:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    env:
-      GH_TOKEN: ${{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
-
-    steps:
-      # We need to checkout code-server so we can get the version
-      - name: Checkout code-server
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-          path: "./code-server"
-
-      - name: Checkout code-server-aur repo
-        uses: actions/checkout@v6
-        with:
-          repository: "cdrci/code-server-aur"
-          token: ${{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
-          ref: "master"
-
-      - name: Merge in master
-        run: |
-          git remote add upstream https://github.com/coder/code-server-aur.git
-          git fetch upstream
-          git merge upstream/master
-
-      - name: Configure git
-        run: |
-          git config --global user.name cdrci
-          git config --global user.email opensource@coder.com
-
-      # Strip out the v (v4.9.1 -> 4.9.1).
-      - name: Get and set VERSION
-        run: |
-          TAG="${{ github.event.inputs.version || github.ref_name }}"
-          echo "VERSION=${TAG#v}" >> $GITHUB_ENV
-
-      - name: Validate package
-        uses: heyhusen/archlinux-package-action@v2.4.0
-        env:
-          VERSION: ${{ env.VERSION }}
-        with:
-          pkgver: ${{ env.VERSION }}
-          updpkgsums: true
-          srcinfo: true
-
-      - name: Open PR
-        # We need to git push -u otherwise gh will prompt
-        # asking where to push the branch.
-        env:
-          VERSION: ${{ env.VERSION }}
-        run: |
-          git checkout -b update-version-${{ env.VERSION }}
-          git add .
-          git commit -m "chore: updating version to ${{ env.VERSION }}"
-          git push -u origin $(git branch --show)
-          gh pr create --repo coder/code-server-aur --title "chore: bump version to ${{ env.VERSION }}" --body "PR opened by @$GITHUB_ACTOR" --assignee $GITHUB_ACTOR
 
   docker:
     runs-on: ubuntu-latest
@@ -146,7 +87,7 @@ jobs:
       - name: Download deb artifacts
         uses: robinraju/release-downloader@v1.12
         with:
-          repository: "coder/code-server"
+          repository: "miadisabelle/mia-code-server"
           tag: v${{ env.VERSION }}
           fileName: "*.deb"
           out-file-path: "release-packages"
@@ -154,7 +95,7 @@ jobs:
       - name: Download rpm artifacts
         uses: robinraju/release-downloader@v1.12
         with:
-          repository: "coder/code-server"
+          repository: "miadisabelle/mia-code-server"
           tag: v${{ env.VERSION }}
           fileName: "*.rpm"
           out-file-path: "release-packages"

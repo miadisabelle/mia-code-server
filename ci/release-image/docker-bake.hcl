@@ -7,11 +7,11 @@ variable "VERSION" {
 }
 
 variable "DOCKER_REGISTRY" {
-    default = "docker.io/codercom/code-server"
+    default = "docker.io/miadisabelle/mia-code-server"
 }
 
 variable "GITHUB_REGISTRY" {
-    default = "ghcr.io/coder/code-server"
+    default = "ghcr.io/miadisabelle/mia-code-server"
 }
 
 group "default" {
