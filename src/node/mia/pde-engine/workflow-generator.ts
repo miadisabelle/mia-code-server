@@ -58,8 +58,9 @@ export class WorkflowGenerator {
         const action = action_stack.find((a) => a.id === actionId)
         if (!action) continue
 
-        const mapping = actionMappings.get(actionId)!
-        const stepId = actionIdToStepId.get(actionId)!
+        const mapping = actionMappings.get(actionId)
+        const stepId = actionIdToStepId.get(actionId)
+        if (!mapping || !stepId) continue
 
         // Resolve action dependencies to step IDs
         const stepDeps = action.dependencies

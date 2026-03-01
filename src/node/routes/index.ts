@@ -17,6 +17,8 @@ import { UpdateProvider } from "../update"
 import { getMediaMime, paths } from "../util"
 import type { WebsocketRequest } from "../wsRouter"
 import { WorkspaceStore, WorkspaceLifecycleEngine, createWorkspaceRouter } from "../mia/workspace-lifecycle"
+import { DecompositionProcessor, PDEStore, createPDERouter } from "../mia/pde-engine"
+import { UniverseDispatcher, EngineerLens, CeremonyLens, StoryLens, createThreeUniverseRouter } from "../mia/three-universe"
 import * as domainProxy from "./domainProxy"
 import { errorHandler, wsErrorHandler } from "./errors"
 import * as health from "./health"
@@ -170,6 +172,15 @@ export const register = async (
   const workspaceStore = new WorkspaceStore(workspaceStorePath)
   const workspaceEngine = new WorkspaceLifecycleEngine(workspaceStore)
   app.router.use("/api/workspace", createWorkspaceRouter(workspaceEngine))
+
+  // PDE Engine API — Prompt Decomposition Engine
+  const pdeStore = new PDEStore(path.join(paths.data, "decompositions"))
+  const pdeProcessor = new DecompositionProcessor(pdeStore)
+  app.router.use("/api/pde", createPDERouter(pdeProcessor))
+
+  // Three-Universe API — Multi-perspective analysis
+  const universeDispatcher = new UniverseDispatcher([new EngineerLens(), new CeremonyLens(), new StoryLens()])
+  app.router.use("/api/three-universe", createThreeUniverseRouter(universeDispatcher))
 
   // For historic reasons we also load at /vscode because the root was replaced
   // by a plugin in v1 of Coder.  The plugin system (which was for internal use

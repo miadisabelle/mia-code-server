@@ -23,5 +23,8 @@ export { GerminationMetrics } from "./germination-metrics"
 export { LayerRegenerator } from "./layer-regenerator"
 export { DecompositionToWorkspace } from "./decomposition-to-workspace"
 
+// HTTP routes
+export { createPDERouter } from "./routes"
+
 // All types
 export * from "./types"
