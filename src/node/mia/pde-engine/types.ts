@@ -231,6 +231,92 @@ export const COMPLEXITY_KEYWORDS: Record<ComplexityEstimate, string[]> = {
   "very-high": ["rewrite", "platform", "distributed", "real-time", "machine learning", "security audit"],
 }
 
+// --- Workflow Generation Types (PDE 03) ---
+
+export type UniverseAssignment = "engineer" | "ceremony" | "story"
+
+export interface NarrativeBeat {
+  template: string
+  universe: UniverseAssignment
+  phase: "setup" | "action" | "resolution"
+}
+
+export interface WorkflowStep {
+  id: string
+  name: string
+  actionId: string
+  description: string
+  universe: UniverseAssignment
+  operation: ActionMappingTarget
+  narrativeBeat: NarrativeBeat
+  dependencies: string[] // Step IDs
+  concurrencyGroup: number
+}
+
+export type ActionMappingTarget =
+  | "file-system"
+  | "test-runner"
+  | "three-universe-analysis"
+  | "pr-workflow"
+  | "build"
+  | "code-generation"
+  | "documentation"
+  | "configuration"
+  | "manual"
+
+export interface ActionMapping {
+  pattern: string
+  target: ActionMappingTarget
+  universe: UniverseAssignment
+}
+
+export interface WorkflowDefinition {
+  id: string
+  decompositionId: string
+  name: string
+  sessionIntent: string
+  steps: WorkflowStep[]
+  completionNarrative: string
+  generatedAt: string
+}
+
+// --- Steerable Decomposition Types (PDE 05) ---
+
+export type SteerablePhase = "initial" | "user-editing" | "regenerating" | "finalized"
+
+export type EditableLayer = "primary" | "secondary" | "directions" | "actionStack" | "context"
+
+export type EditOperation = "add" | "edit" | "remove" | "reorder"
+
+export interface DecompositionEdit {
+  timestamp: string
+  layer: EditableLayer
+  operation: EditOperation
+  path: string
+  previousValue: unknown
+  newValue: unknown
+}
+
+export interface SteerableState {
+  phase: SteerablePhase
+  editHistory: DecompositionEdit[]
+  stalenessMap: Record<EditableLayer, boolean>
+  lockedLayers: EditableLayer[]
+}
+
+export interface SteerableDecomposition extends DecompositionResult {
+  steerableState: SteerableState
+}
+
+export interface GerminationHealth {
+  germinationTimeMs: number
+  editCount: number
+  directionBalance: number // 0-1
+  intentClarity: number // 0-1 average confidence
+  isStalled: boolean
+  recommendation: "continue" | "transition-to-assimilation" | "rebalance" | "clarify-intents"
+}
+
 // --- Hedging Patterns (for implicit intent detection) ---
 
 export const HEDGING_PATTERNS: string[] = [
