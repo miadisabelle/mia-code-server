@@ -70,4 +70,5 @@ Inspiration for bringing back Copilot Workspace's agentic presence. The key insi
 
 ### Relational Change Log
 - [2026-02-28] Agent B (mia-code-server context) — Created smcraft-integration rispecs (00-04), SMDF example, shared vocabulary, llms document. Coordinated with Agent A (smcraft context) working on rispecs 70-74 and MMOT implementation.
+- [2026-02-28] Agent A (smcraft context) — Completed rispecs 70-74 in `smcraft/rispecs/`. Implemented parser V009/V010/V011/V014 validation rules. Wired MCP `generate_code` to real `smcg` CLI. Added composite state drill-down (breadcrumb navigation, double-click to enter) to web designer. Connected Generate button to backend codegen API with language selection. Updated smcraft/KINSHIP.md with full relationship map including STC↔state machine bridge.
 
