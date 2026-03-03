@@ -19,6 +19,15 @@ import type { WebsocketRequest } from "../wsRouter"
 import { WorkspaceStore, WorkspaceLifecycleEngine, createWorkspaceRouter } from "../mia/workspace-lifecycle"
 import { DecompositionProcessor, PDEStore, createPDERouter } from "../mia/pde-engine"
 import { UniverseDispatcher, EngineerLens, CeremonyLens, StoryLens, createThreeUniverseRouter } from "../mia/three-universe"
+import {
+  NarrativeEventBus,
+  NarrativeStore,
+  createHealthRouter,
+  createNarrativeRouter,
+  createChartRouter,
+  createSessionRouter,
+  createNarrativeWsRouter,
+} from "../mia/narrative"
 import * as domainProxy from "./domainProxy"
 import { errorHandler, wsErrorHandler } from "./errors"
 import * as health from "./health"
@@ -181,6 +190,30 @@ export const register = async (
   // Three-Universe API — Multi-perspective analysis
   const universeDispatcher = new UniverseDispatcher([new EngineerLens(), new CeremonyLens(), new StoryLens()])
   app.router.use("/api/three-universe", createThreeUniverseRouter(universeDispatcher))
+
+  // Narrative Module — Event bus, store, and all narrative-related routes
+  const narrativeEventBus = new NarrativeEventBus()
+  const narrativeStore = new NarrativeStore()
+
+  // Enhanced Health API — /api/health
+  app.router.use("/api/health", createHealthRouter(narrativeStore, [
+    { name: "pde", version: "1.0.0", status: "ok" },
+    { name: "workspace-lifecycle", version: "1.0.0", status: "ok" },
+    { name: "three-universe", version: "1.0.0", status: "ok" },
+  ]))
+
+  // Narrative REST API — /api/narrative/*
+  const narrativeRouter = createNarrativeRouter(universeDispatcher, narrativeStore, narrativeEventBus)
+  app.router.use("/api/narrative", narrativeRouter)
+
+  // STC Charts alias — extensions also expect /api/stc/charts
+  app.router.use("/api/stc/charts", createChartRouter(narrativeStore, narrativeEventBus))
+
+  // Sessions API — /api/sessions
+  app.router.use("/api/sessions", createSessionRouter(narrativeStore, narrativeEventBus))
+
+  // WebSocket Narrative Channel — /api/ws/narrative
+  app.wsRouter.use("/api/ws/narrative", createNarrativeWsRouter(narrativeEventBus).router)
 
   // For historic reasons we also load at /vscode because the root was replaced
   // by a plugin in v1 of Coder.  The plugin system (which was for internal use
