@@ -91,8 +91,33 @@ export class PDEStore {
     lines.push(`> ID: \`${result.id}\` | ${result.timestamp}`)
     lines.push("")
 
-    // Primary Intents
-    lines.push("## Primary Intents")
+    // ── Canonical sections (Four Directions first) ──
+
+    lines.push("## Four Directions")
+    lines.push("")
+    const dirLabels: Record<string, string> = {
+      east: "🌅 EAST — Vision",
+      south: "🔥 SOUTH — Analysis",
+      west: "🌊 WEST — Validation",
+      north: "❄️ NORTH — Action",
+    }
+    const directions: Direction[] = ["east", "south", "west", "north"]
+    for (const dir of directions) {
+      const mapping = result.four_directions[dir]
+      lines.push(`### ${dirLabels[dir]}`)
+      lines.push(`Energy: ${(mapping.energy_level * 100).toFixed(0)}% | ${mapping.balance_note}`)
+      if (mapping.intents.length > 0) {
+        for (const intent of mapping.intents) {
+          lines.push(`- ${intent}`)
+        }
+      } else {
+        lines.push("- _(no intents in this direction)_")
+      }
+      lines.push("")
+    }
+
+    // Primary Intent
+    lines.push("## Primary Intent")
     for (const intent of result.primary_intents) {
       lines.push(`- **${intent.description}** (confidence: ${intent.confidence.toFixed(2)}, complexity: ${intent.complexity})`)
     }
@@ -116,30 +141,6 @@ export class PDEStore {
       lines.push("")
     }
 
-    // Four Directions
-    lines.push("## Four Directions")
-    lines.push("")
-    const dirLabels: Record<string, string> = {
-      north: "🧭 North — Vision & Strategy",
-      east: "🌅 East — Innovation & Creation",
-      south: "🤝 South — Trust & Community",
-      west: "🌙 West — Reflection & Integration",
-    }
-    const directions: Direction[] = ["north", "east", "south", "west"]
-    for (const dir of directions) {
-      const mapping = result.four_directions[dir]
-      lines.push(`### ${dirLabels[dir]}`)
-      lines.push(`Energy: ${(mapping.energy_level * 100).toFixed(0)}% | ${mapping.balance_note}`)
-      if (mapping.intents.length > 0) {
-        for (const intent of mapping.intents) {
-          lines.push(`- ${intent}`)
-        }
-      } else {
-        lines.push("- _(no intents in this direction)_")
-      }
-      lines.push("")
-    }
-
     // Action Stack
     lines.push("## Action Stack")
     for (const action of result.action_stack) {
@@ -148,9 +149,9 @@ export class PDEStore {
     }
     lines.push("")
 
-    // Ambiguities
+    // Ambiguity Flags
     if (result.ambiguities.length > 0) {
-      lines.push("## Ambiguities")
+      lines.push("## Ambiguity Flags")
       for (const amb of result.ambiguities) {
         lines.push(`- **${amb.type}**: ${amb.description}`)
         lines.push(`  - Suggested clarification: ${amb.suggestedClarification}`)
@@ -158,7 +159,9 @@ export class PDEStore {
       lines.push("")
     }
 
-    // Dependency Graph
+    // ── mia-code-server–specific sections ──
+
+    // Dependencies
     if (result.dependency_graph.dependencies.length > 0) {
       lines.push("## Dependencies")
       for (const dep of result.dependency_graph.dependencies) {
@@ -167,6 +170,7 @@ export class PDEStore {
       lines.push("")
     }
 
+    // Execution Order
     if (result.dependency_graph.executionOrder.length > 0) {
       lines.push("## Execution Order")
       for (const group of result.dependency_graph.executionOrder) {
