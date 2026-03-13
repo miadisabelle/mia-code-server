@@ -77,7 +77,7 @@ main() {
 
   # We use this to set the name of the package in the
   # package.json
-  PACKAGE_NAME="code-server"
+  PACKAGE_NAME="mcode-server"
 
   # NOTES:@jsjoeio
   # We only need to run npm version for "development" and "staging".

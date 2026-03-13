@@ -24,11 +24,11 @@ async function entry(): Promise<void> {
   const args = await setDefaults(cliArgs, configArgs)
 
   if (args.help) {
-    console.log("mia-code-server", getVersionString())
+    console.log("mcode-server", getVersionString())
     console.log("")
-    console.log(`Usage: code-server [options] [path]`)
-    console.log(`    - Opening a directory: code-server ./path/to/your/project`)
-    console.log(`    - Opening a saved workspace: code-server ./path/to/your/project.code-workspace`)
+    console.log(`Usage: mcode-server [options] [path]`)
+    console.log(`    - Opening a directory: mcode-server ./path/to/your/project`)
+    console.log(`    - Opening a saved workspace: mcode-server ./path/to/your/project.code-workspace`)
     console.log("")
     console.log("Options")
     optionDescriptions().forEach((description) => {

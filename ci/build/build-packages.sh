@@ -27,7 +27,7 @@ main() {
 }
 
 release_archive() {
-  local release_name="code-server-$VERSION-$OS-$ARCH"
+  local release_name="mcode-server-$VERSION-$OS-$ARCH"
   if [[ $OS == "linux" ]]; then
     tar -czf "release-packages/$release_name.tar.gz" --owner=0 --group=0 --transform "s/^\.\/release-standalone/$release_name/" ./release-standalone
   else
@@ -57,14 +57,14 @@ release_nfpm() {
   nfpm_config="$(envsubst < ./ci/build/nfpm.yaml)"
   echo "Building deb"
   echo "$nfpm_config" | head --lines=4
-  nfpm pkg -f <(echo "$nfpm_config") --target "release-packages/code-server_${VERSION}_${NFPM_ARCH}.deb"
+  nfpm pkg -f <(echo "$nfpm_config") --target "release-packages/mcode-server_${VERSION}_${NFPM_ARCH}.deb"
 
   PKG_FORMAT="rpm"
   NFPM_ARCH="$(get_nfpm_arch $PKG_FORMAT "$ARCH")"
   nfpm_config="$(envsubst < ./ci/build/nfpm.yaml)"
   echo "Building rpm"
   echo "$nfpm_config" | head --lines=4
-  nfpm pkg -f <(echo "$nfpm_config") --target "release-packages/code-server-$VERSION-$NFPM_ARCH.rpm"
+  nfpm pkg -f <(echo "$nfpm_config") --target "release-packages/mcode-server-$VERSION-$NFPM_ARCH.rpm"
 }
 
 main "$@"

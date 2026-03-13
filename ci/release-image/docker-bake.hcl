@@ -7,7 +7,7 @@ variable "VERSION" {
 }
 
 variable "DOCKER_REGISTRY" {
-    default = "docker.io/miadisabelle/mia-code-server"
+    default = "docker.io/jgwill/mia-code-server"
 }
 
 variable "GITHUB_REGISTRY" {

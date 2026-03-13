@@ -74,7 +74,7 @@ You can disable minification by setting `MINIFY=`.
 This directory contains the release docker container image.
 
 - [./ci/steps/build-docker-buildx-push.sh](./steps/docker-buildx-push.sh)
-  - Builds the release containers with tags `codercom/code-server-$ARCH:$VERSION` for amd64 and arm64 with `docker buildx` and pushes them.
+  - Builds the release containers with tags `jgwill/mia-code-server-$ARCH:$VERSION` for amd64 and arm64 with `docker buildx` and pushes them.
   - Assumes debian releases are ready in `./release-packages`.
 
 ## images
@@ -108,5 +108,5 @@ Helps avoid clobbering the CI configuration.
   - Builds the docker image and then pushes it.
 - [./steps/push-docker-manifest.sh](./steps/push-docker-manifest.sh)
   - Loads all images in `./release-images` and then builds and pushes a multi architecture
-    docker manifest for the amd64 and arm64 images to `codercom/code-server:$VERSION` and
-    `codercom/code-server:latest`.
+    docker manifest for the amd64 and arm64 images to `jgwill/mia-code-server:$VERSION` and
+    `jgwill/mia-code-server:latest`.

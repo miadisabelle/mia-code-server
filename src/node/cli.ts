@@ -167,7 +167,7 @@ export const options: Options<Required<UserProvidedArgs>> = {
   "disable-update-check": {
     type: "boolean",
     description:
-      "Disable update check. Without this flag, code-server checks every 6 hours against the latest github release and \n" +
+      "Disable update check. Without this flag, mcode-server checks every 6 hours against the latest github release and \n" +
       "then notifies you once every week that a new release is available.",
   },
   "session-socket": {
@@ -540,7 +540,7 @@ export async function setDefaults(cliArgs: UserProvidedArgs, configArgs?: Config
   }
 
   if (!args["session-socket"]) {
-    args["session-socket"] = path.join(args["user-data-dir"], "code-server-ipc.sock")
+    args["session-socket"] = path.join(args["user-data-dir"], "mcode-server-ipc.sock")
   }
   process.env.CODE_SERVER_SESSION_SOCKET = args["session-socket"]
 

@@ -1,5 +1,5 @@
 {
-  "name": "mia-code-server",
+  "name": "mcode-server",
   "license": "MIT",
   "version": "0.0.0",
   "description": "Narrative-Driven CoDevOps Development Platform — Three-Universe intelligent code server.",
@@ -92,13 +92,13 @@
     "@types/node": "22.x"
   },
   "bin": {
-    "mia-code-server": "out/node/entry.js"
+    "mcode-server": "out/node/entry.js"
   },
   "keywords": [
     "vscode",
     "development",
     "ide",
-    "mia-code",
+    "mcode",
     "narrative-driven",
     "three-universe",
     "codevops",

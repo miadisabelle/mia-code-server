@@ -20,7 +20,7 @@ main() {
 
   mkdir -p "$RELEASE_PATH/bin"
   mkdir -p "$RELEASE_PATH/lib"
-  rsync ./ci/build/code-server.sh "$RELEASE_PATH/bin/code-server"
+  rsync ./ci/build/code-server.sh "$RELEASE_PATH/bin/mcode-server"
   rsync "$node_path" "$RELEASE_PATH/lib/node"
 
   chmod 755 "$RELEASE_PATH/lib/node"

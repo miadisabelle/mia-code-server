@@ -57,8 +57,8 @@ export const paths = getEnvPaths()
  * ones. Most CLIs do this as in practice only GUI apps use the standard macOS directories.
  */
 export function getEnvPaths(platform = process.platform): Paths {
-  const paths = envPaths("mia-code-server", { suffix: "" })
-  const append = (p: string): string => path.join(p, "mia-code-server")
+  const paths = envPaths("mcode-server", { suffix: "" })
+  const append = (p: string): string => path.join(p, "mcode-server")
   switch (platform) {
     case "darwin":
       return {
